@@ -1,7 +1,7 @@
 import uuid;
 from xml.dom import minidom
 
-from .entities import Phrase
+from .entities import Phrase, URL
 from .utils import remove_invalid_xml_chars
 
 BOOKMARK_COLOR_NONE = "-1"
@@ -138,6 +138,11 @@ class MaltegoEntity(object):
 
         if self.iconURL:
             lines.append("<IconURL>%s</IconURL>" % self.iconURL)
+
+        if self.entityType == URL:
+            lines.append(f"<URL>{self.value}</URL>")
+            lines.append("<Title>URL title</Title>")
+            lines.append("<ShortTitle>URL title</ShortTitle>")
 
         lines.append("</Entity>")
         return "".join(lines)
